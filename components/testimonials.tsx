@@ -4,83 +4,51 @@ import { motion } from "framer-motion";
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Sarah Chen",
-      role: "CEO at TechStart",
+      name: "Alex Chen",
+      role: "AI Engineer at Meta",
       avatar: "https://i.pravatar.cc/150?img=1",
       content:
-        "This platform has transformed how we manage our business. The analytics features alone have saved us countless hours and improved our decision-making process significantly.",
+        "The daily interview questions from AI Engineer Labs have been invaluable for my FAANG interviews. The practical system design questions really helped me land my dream job.",
       rating: 5,
     },
     {
-      name: "Marcus Rodriguez",
-      role: "Product Manager at Scale Co",
+      name: "Priya Sharma",
+      role: "ML Engineer at Google",
       avatar: "https://i.pravatar.cc/150?img=3",
       content:
-        "The integration capabilities are outstanding. We were able to connect all our existing tools seamlessly. The customer support team is also incredibly responsive and helpful.",
+        "Hao's deep dives into LLM optimization like weight decay illusions completely changed how I think about training dynamics. His Substack posts explain the 'dark arts' that actually work in production systems.",
       rating: 5,
     },
     {
-      name: "Emma Thompson",
-      role: "CTO at DataFlow",
+      name: "David Kim",
+      role: "CTO at AI Startup",
       avatar: "https://i.pravatar.cc/150?img=5",
       content:
-        "Security was our main concern when choosing a platform, and this solution exceeded our expectations. The encryption and compliance features give us complete peace of mind.",
+        "The consulting session with Hao transformed our RAG system from prototype to production-ready. We went from 70% accuracy to 95% in just two weeks.",
       rating: 5,
     },
     {
-      name: "Robert Taylor",
-      role: "CTO at FinanceFlow",
+      name: "Lisa Wong",
+      role: "Senior AI Engineer at OpenAI",
       avatar: "https://i.pravatar.cc/150?img=15",
       content:
-        "Security and compliance are critical in our industry. This platform not only meets but exceeds all our regulatory requirements.",
+        "Hao's LLM system design interviews are next-level. Questions about 500B parameter model training with cosine schedules and weight decay dynamics prepared me perfectly for FAANG interviews.",
       rating: 5,
     },
     {
-      name: "Maria Garcia",
-      role: "Director of Operations at StreamlineOps",
+      name: "Marcus Johnson",
+      role: "AI Research Engineer",
       avatar: "https://i.pravatar.cc/150?img=17",
       content:
-        "The customer support is phenomenal. Every question gets answered quickly and thoroughly. It's like having an extended team member.",
+        "Following the daily content has kept me updated on cutting-edge AI developments while staying grounded in practical engineering principles.",
       rating: 5,
     },
     {
-      name: "Kevin Lee",
-      role: "Founder at NextGen Solutions",
+      name: "Sarah Patel",
+      role: "Engineering Manager at Anthropic",
       avatar: "https://i.pravatar.cc/150?img=19",
       content:
-        "We've tried many platforms, but this one stands out for its reliability and performance. Zero downtime in 18 months of usage.",
-      rating: 5,
-    },
-    {
-      name: "Sophie Anderson",
-      role: "Product Lead at InnovateLab",
-      avatar: "https://i.pravatar.cc/150?img=21",
-      content:
-        "The analytics dashboard gives us insights we never had before. Data-driven decisions have become our competitive advantage.",
-      rating: 5,
-    },
-    {
-      name: "James Wilson",
-      role: "Engineering Manager at TechBridge",
-      avatar: "https://i.pravatar.cc/150?img=23",
-      content:
-        "Migration was seamless and the onboarding process was exceptional. Our team was productive from day one.",
-      rating: 5,
-    },
-    {
-      name: "Elena Petrov",
-      role: "CEO at GrowthMetrics",
-      avatar: "https://i.pravatar.cc/150?img=25",
-      content:
-        "The platform scales beautifully with our business. From startup to enterprise, it has grown with us every step of the way.",
-      rating: 5,
-    },
-    {
-      name: "Michael Chang",
-      role: "Head of Product at DataDriven",
-      avatar: "https://i.pravatar.cc/150?img=27",
-      content:
-        "Real-time collaboration features have transformed how our remote team works together. Productivity has increased dramatically.",
+        "The workshop on building production RAG systems was exactly what my team needed. We implemented the learnings immediately and saw measurable improvements.",
       rating: 5,
     },
   ];
@@ -106,10 +74,10 @@ export default function Testimonials() {
           className="text-center mb-20 flex flex-col gap-3"
         >
           <h2 className="text-xl font-semibold sm:text-2xl bg-linear-to-b from-foreground to-muted-foreground text-transparent bg-clip-text">
-            Loved by Teams Worldwide
+            Trusted by AI Engineers
           </h2>
           <p className="mx-auto max-w-xl text-muted-foreground text-center">
-            Join thousands of companies that trust our platform.
+            Join the growing community of AI engineers learning from practical insights.
           </p>
         </motion.div>
 

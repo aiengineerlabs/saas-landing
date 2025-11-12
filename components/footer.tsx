@@ -3,21 +3,27 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { GitHubLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import { LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { Coffee, Mail } from "lucide-react";
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
   const socialLinks = [
     {
-      name: "Twitter",
-      href: "https://x.com/gonzalochale",
-      icon: TwitterLogoIcon,
+      name: "LinkedIn",
+      href: "https://www.linkedin.com/in/hoang-van-hao/",
+      icon: LinkedInLogoIcon,
     },
     {
-      name: "GitHub",
-      href: "https://github.com/gonzalochale",
-      icon: GitHubLogoIcon,
+      name: "Substack",
+      href: "https://aiinterviewprep.substack.com/",
+      icon: Mail,
+    },
+    {
+      name: "Buy me a coffee",
+      href: "https://buymeacoffee.com/haohoang",
+      icon: Coffee,
     },
   ];
 
@@ -35,7 +41,7 @@ const Footer = () => {
             href="/"
             className="text-xl font-medium hover:opacity-80 transition-opacity"
           >
-            Acme
+            AI Engineer Labs LLC
           </Link>
           <div className="flex space-x-3">
             {socialLinks.map((social) => (
@@ -58,9 +64,9 @@ const Footer = () => {
             ))}
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-2 text-sm text-muted-foreground">
-            <span>© {year} Acme</span>
+            <span>© {year} AI Engineer Labs LLC</span>
             <span className="hidden sm:inline">•</span>
-            <span className="font-medium">#BuildingInPublic</span>
+            <span className="font-medium">#AI #MachineLearning #DeepLearning</span>
           </div>
         </motion.div>
       </div>

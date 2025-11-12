@@ -1,48 +1,57 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { CheckIcon } from "@radix-ui/react-icons";
+import ContactModal from "@/components/contact-modal";
 
 export default function Pricing() {
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("general");
+
+  const handleContactClick = (service: string) => {
+    setSelectedService(service);
+    setContactModalOpen(true);
+  };
+
   const plans = [
     {
-      name: "Hobby Plan",
-      desc: "Perfect for getting started",
+      name: "Daily Learning",
+      desc: "Free daily content for AI engineers",
       price: 0,
-      isMostPop: false,
-      features: [
-        "Make the best schedule",
-        "Support your team",
-        "Basic analytics",
-      ],
-    },
-    {
-      name: "Pro Plan",
-      desc: "Best for growing teams",
-      price: 29,
       isMostPop: true,
       features: [
-        "Everything in Hobby",
-        "Advanced team features",
-        "Priority support",
-        "Video calls",
-        "Custom integrations",
+        "Daily interview questions",
+        "Daily knowledge sharing",
+        "Practical AI system insights",
+        "Community access",
       ],
     },
     {
-      name: "Enterprise Plan",
-      desc: "For large organizations",
-      price: 99,
+      name: "Digital Products",
+      desc: "Production-ready AI system resources",
+      price: 19,
       isMostPop: false,
       features: [
-        "Everything in Pro",
-        "Advanced security",
-        "Custom branding",
-        "Dedicated support",
-        "SLA guarantee",
+        "RAG Systems eBook ($29)",
+        "Interview Question Kit ($19)",
+        "LLM Evaluation Templates ($39)",
+        "Free Substack access included",
+      ],
+    },
+    {
+      name: "Expert Consulting",
+      desc: "Custom AI system design & implementation",
+      price: 1500,
+      isMostPop: false,
+      features: [
+        "RAG & agentic system design",
+        "Production deployment guidance",
+        "Team training workshops",
+        "Code review & optimization",
       ],
     },
   ];
@@ -60,11 +69,10 @@ export default function Pricing() {
         className="text-center mb-16 flex flex-col gap-3"
       >
         <h2 className="text-xl font-semibold sm:text-2xl bg-linear-to-b from-foreground to-muted-foreground text-transparent bg-clip-text">
-          Choose Your Plan
+          Our Services
         </h2>
         <p className="mx-auto max-w-xl text-muted-foreground text-center">
-          Select the perfect plan for your needs. Upgrade or downgrade at any
-          time.
+          From daily learning content to expert consulting and digital products.
         </p>
       </motion.div>
 
@@ -98,8 +106,12 @@ export default function Pricing() {
                     {plan.desc}
                   </p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold">${plan.price}</span>
-                    <span className="text-muted-foreground ml-1">/month</span>
+                    <span className="text-4xl font-bold">
+                      {plan.price === 0 ? "Free" : plan.price === 1500 ? "$1,500" : `$${plan.price}`}
+                    </span>
+                    <span className="text-muted-foreground ml-1">
+                      {plan.price === 0 ? "" : plan.price === 1500 ? "/project" : "/item"}
+                    </span>
                   </div>
                 </div>
 
@@ -123,14 +135,29 @@ export default function Pricing() {
                   className="w-full"
                   variant={plan.isMostPop ? "default" : "outline"}
                   size="lg"
+                  onClick={() => {
+                    if (plan.price === 0) {
+                      handleContactClick("daily-learning");
+                    } else if (plan.price === 1500) {
+                      handleContactClick("consulting");
+                    } else {
+                      handleContactClick("digital-products");
+                    }
+                  }}
                 >
-                  {plan.price === 0 ? "Get Started Free" : "Choose Plan"}
+                  {plan.price === 0 ? "Join Daily Learning" : plan.price === 1500 ? "Book Consultation" : "View Products"}
                 </Button>
               </CardFooter>
             </Card>
           </motion.div>
         ))}
       </div>
+      
+      <ContactModal 
+        isOpen={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
+        service={selectedService}
+      />
     </section>
   );
 }

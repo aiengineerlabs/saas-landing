@@ -10,54 +10,49 @@ import { motion } from "framer-motion";
 export default function Faq() {
   const accordionItems = [
     {
-      title: "This template is Free?",
+      title: "Is the daily content really free?",
       content: (
         <div className="text-muted-foreground">
-          Yes, this template is free. You can use it for personal or commercial
-          purposes.
+          Yes! Our daily interview questions and knowledge sharing are completely free.
+          We believe in democratizing access to high-quality AI engineering education.
         </div>
       ),
     },
     {
-      title: "There are more templates?",
+      title: "How do I get notified of daily content?",
       content: (
         <div className="text-muted-foreground">
-          Yes, there are more templates available. You can find them here:{" "}
-          <a
-            href="https://x.com/gonzalochale"
-            target="_blank"
-            rel="noreferrer"
-            className="text-primary underline"
-          >
-            gonzalochale.dev
-          </a>
+          Join our email list or follow us on LinkedIn. We post daily content consistently
+          at the same time each day to help you build a learning habit.
         </div>
       ),
     },
     {
-      title: "How can I use this template?",
+      title: "What's included in consulting services?",
       content: (
         <div className="text-muted-foreground">
-          You can use this template by cloning it from{" "}
-          <a
-            href="https://github.com/gonzalochale/nextui-saas-landing-template"
-            className="text-primary underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-          .
+          Our consulting covers RAG system design, agentic AI implementation,
+          production deployment guidance, and team training workshops. Each project
+          is tailored to your specific needs and timeline.
         </div>
       ),
     },
     {
-      title: "How can I contribute to this template?",
+      title: "What's special about your Substack content?",
       content: (
         <div className="text-muted-foreground">
-          You can contribute to this template by forking it on GitHub and
-          submitting a pull request. You can also report any issues or bugs you
-          encounter while using the template.
+          My "AI Interview Prep" Substack dives deep into the 'dark arts' of AI system design
+          that textbooks don't cover. Each post explores real production challenges, like weight
+          decay illusions in LLM training and optimization dynamics that actually matter.
+        </div>
+      ),
+    },
+    {
+      title: "Do you offer refunds for digital products?",
+      content: (
+        <div className="text-muted-foreground">
+          We offer a 30-day money-back guarantee on all digital products. If you're not
+          satisfied with the quality and practical value, we'll refund your purchase.
         </div>
       ),
     },
@@ -79,7 +74,7 @@ export default function Faq() {
           FAQ
         </h4>
         <p className="max-w-xl text-muted-foreground text-center">
-          Here are some of our frequently asked questions.
+          Common questions about our daily content and services.
         </p>
       </div>
       <div className="flex w-full max-w-lg">

@@ -9,8 +9,8 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "SaaS Landing Template",
-  description: "Landing Page template.",
+  title: "AI Engineer Labs LLC - Daily AI Interview Questions & Knowledge Sharing",
+  description: "Bridging AI research and real-world engineering. Daily interview questions, knowledge sharing, and consulting for practical AI system design.",
 };
 
 export default function RootLayout({

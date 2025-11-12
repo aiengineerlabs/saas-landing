@@ -16,6 +16,7 @@ import {
   TimerIcon,
   HamburgerMenuIcon,
   Cross1Icon,
+  LinkedInLogoIcon,
 } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useState } from "react";
@@ -50,12 +51,12 @@ export default function NavBar() {
           </div>
           <div className="flex sm:hidden">
             <Link href="/" className="font-light tracking-tighter text-lg">
-              Acme
+              AI Engineer Labs
             </Link>
           </div>
           <div className="hidden sm:flex items-center space-x-8">
             <Link href="/" className="font-light tracking-tighter text-2xl">
-              Acme
+              AI Engineer Labs
             </Link>
 
             <Button asChild variant="ghost" size="sm">
@@ -69,7 +70,7 @@ export default function NavBar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm">
-                  Dropdown
+                  Resources
                   <ChevronDownIcon className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -77,50 +78,50 @@ export default function NavBar() {
                 <DropdownMenuItem>
                   <OpenInNewWindowIcon className="mr-2 h-4 w-4" />
                   <div>
-                    <div className="font-semibold">Autoscaling</div>
+                    <div className="font-semibold">AI Interview Prep</div>
                     <div className="text-sm text-muted-foreground">
-                      ACME scales apps to meet user demand, automagically, based
-                      on load.
+                      Daily Substack posts on LLM system design interviews
+                      and the dark arts of AI engineering.
                     </div>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <PersonIcon className="mr-2 h-4 w-4" />
                   <div>
-                    <div className="font-semibold">Usage Metrics</div>
+                    <div className="font-semibold">Digital Products</div>
                     <div className="text-sm text-muted-foreground">
-                      Real-time metrics to debug issues. Slow query added?
-                      We&apos;ll show you exactly where.
+                      eBooks, templates, and interview kits for production-ready
+                      AI system design.
                     </div>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <GlobeIcon className="mr-2 h-4 w-4" />
                   <div>
-                    <div className="font-semibold">Production Ready</div>
+                    <div className="font-semibold">Expert Consulting</div>
                     <div className="text-sm text-muted-foreground">
-                      ACME runs on ACME, join us and others serving requests at
-                      web scale.
+                      Custom RAG systems, LLM optimization, and production
+                      deployment guidance.
                     </div>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <TimerIcon className="mr-2 h-4 w-4" />
                   <div>
-                    <div className="font-semibold">+99% Uptime</div>
+                    <div className="font-semibold">Daily Content</div>
                     <div className="text-sm text-muted-foreground">
-                      Applications stay on the grid with high availability and
-                      high uptime guarantees.
+                      Fresh AI engineering insights published every day at
+                      the same time.
                     </div>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <FaceIcon className="mr-2 h-4 w-4" />
                   <div>
-                    <div className="font-semibold">+Supreme Support</div>
+                    <div className="font-semibold">Community Support</div>
                     <div className="text-sm text-muted-foreground">
-                      Overcome any challenge with a supporting team ready to
-                      respond.
+                      Join our community of AI engineers tackling real-world
+                      challenges together.
                     </div>
                   </div>
                 </DropdownMenuItem>
@@ -129,21 +130,9 @@ export default function NavBar() {
           </div>
           <div className="flex items-center space-x-4">
             <Button asChild className="hidden sm:flex" size="sm">
-              <Link href="https://x.com/gonzalochale" target="_blank">
-                Connect on{" "}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  fill="none"
-                  viewBox="0 0 1200 1227"
-                  className="ml-1"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
-                  />
-                </svg>
+              <Link href="https://www.linkedin.com/in/hoang-van-hao/" target="_blank">
+                Connect on LinkedIn
+                <LinkedInLogoIcon className="ml-1 h-4 w-4" />
               </Link>
             </Button>
             <ThemeSwitcher />
@@ -188,25 +177,13 @@ export default function NavBar() {
                   className="pt-2 mt-2"
                 >
                   <Link
-                    href="https://x.com/gonzalochale"
+                    href="https://www.linkedin.com/in/hoang-van-hao/"
                     target="_blank"
                     className="flex items-center px-3 py-2 text-base font-medium text-foreground hover:bg-muted rounded-md transition-colors duration-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Connect on{" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="none"
-                      viewBox="0 0 1200 1227"
-                      className="ml-2"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
-                      />
-                    </svg>
+                    Connect on LinkedIn
+                    <LinkedInLogoIcon className="ml-2 h-4 w-4" />
                   </Link>
                 </motion.div>
               </motion.div>
