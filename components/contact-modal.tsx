@@ -131,13 +131,13 @@ export default function ContactModal({ isOpen, onClose, service = "general" }: C
         onClose();
       }, 2000);
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("EmailJS error:", err);
       
       // Provide helpful error message
       let errorMessage = "Failed to send message. ";
-      if (err?.text) {
-        errorMessage += err.text;
+      if (err && typeof err === 'object' && 'text' in err) {
+        errorMessage += (err as { text: string }).text;
       } else {
         errorMessage += "Please try again or email us directly at hao.hoang.ai@gmail.com";
       }
@@ -157,7 +157,7 @@ export default function ContactModal({ isOpen, onClose, service = "general" }: C
         <DialogHeader>
           <DialogTitle>Get in Touch</DialogTitle>
           <DialogDescription>
-            Send us a message and we'll get back to you within 24 hours
+            Send us a message and we&apos;ll get back to you within 24 hours
           </DialogDescription>
         </DialogHeader>
 
@@ -167,7 +167,7 @@ export default function ContactModal({ isOpen, onClose, service = "general" }: C
             <div className="text-center">
               <h3 className="text-lg font-semibold mb-2">Message Sent!</h3>
               <p className="text-sm text-muted-foreground">
-                We've received your message and will respond soon.
+                We&apos;ve received your message and will respond soon.
               </p>
             </div>
           </div>

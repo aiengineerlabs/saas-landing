@@ -58,7 +58,7 @@ export default function Hero() {
                   <DialogTitle>Hao Hoang - Founder</DialogTitle>
                   <DialogDescription>
                     AI Engineer from Albuquerque, NM. Deep-diving into LLM system design,
-                    optimization techniques, and production ML engineering. Author of "AI Interview Prep"
+                    optimization techniques, and production ML engineering. Author of &quot;AI Interview Prep&quot;
                     Substack, sharing the dark arts of AI system design that actually work in production.
                   </DialogDescription>
                 </DialogHeader>

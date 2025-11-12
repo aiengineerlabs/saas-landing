@@ -41,8 +41,8 @@ export default function Faq() {
       title: "What's special about your Substack content?",
       content: (
         <div className="text-muted-foreground">
-          My "AI Interview Prep" Substack dives deep into the 'dark arts' of AI system design
-          that textbooks don't cover. Each post explores real production challenges, like weight
+          My &quot;AI Interview Prep&quot; Substack dives deep into the &apos;dark arts&apos; of AI system design
+          that textbooks don&apos;t cover. Each post explores real production challenges, like weight
           decay illusions in LLM training and optimization dynamics that actually matter.
         </div>
       ),
@@ -51,8 +51,8 @@ export default function Faq() {
       title: "Do you offer refunds for digital products?",
       content: (
         <div className="text-muted-foreground">
-          We offer a 30-day money-back guarantee on all digital products. If you're not
-          satisfied with the quality and practical value, we'll refund your purchase.
+          We offer a 30-day money-back guarantee on all digital products. If you&apos;re not
+          satisfied with the quality and practical value, we&apos;ll refund your purchase.
         </div>
       ),
     },
