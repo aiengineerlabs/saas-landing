@@ -48,32 +48,24 @@ function NeuralNodeCluster({ position, color, speed = 1 }: { position: [number, 
     }
   });
 
+  const lineObjects = useMemo(() => {
+    const material = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.4 });
+    return nodes.connections.map(([i, j]) => {
+      const start = nodes.nodePositions[i];
+      const end = nodes.nodePositions[j];
+      const positions = new Float32Array([...start, ...end]);
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      return new THREE.Line(geometry, material);
+    });
+  }, [nodes.connections, nodes.nodePositions, color]);
+
   return (
     <group ref={groupRef} position={position}>
       {/* Connections */}
-      {nodes.connections.map(([i, j], idx) => {
-        const start = nodes.nodePositions[i];
-        const end = nodes.nodePositions[j];
-        const mid = [
-          (start[0] + end[0]) / 2,
-          (start[1] + end[1]) / 2,
-          (start[2] + end[2]) / 2
-        ];
-        
-        return (
-          <line key={idx}>
-            <bufferGeometry>
-              <bufferAttribute
-                attach="attributes-position"
-                count={2}
-                array={new Float32Array([...start, ...end])}
-                itemSize={3}
-              />
-            </bufferGeometry>
-            <lineBasicMaterial color={color} transparent opacity={0.4} />
-          </line>
-        );
-      })}
+      {lineObjects.map((lineObj, idx) => (
+        <primitive key={idx} object={lineObj} />
+      ))}
       
       {/* Nodes */}
       {nodes.nodePositions.map((pos, idx) => (
@@ -132,11 +124,12 @@ function DataFlowStream({ position, color, speed = 1 }: { position: [number, num
     }
   });
 
+  const lineMaterial = useMemo(() => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.6 }), [color]);
+  const lineObject = useMemo(() => new THREE.Line(streamGeometry, lineMaterial), [streamGeometry, lineMaterial]);
+
   return (
     <group ref={groupRef} position={position}>
-      <line geometry={streamGeometry}>
-        <lineBasicMaterial color={color} transparent opacity={0.6} linewidth={2} />
-      </line>
+      <primitive object={lineObject} />
       {/* Flowing particles along the stream */}
       <group ref={particlesRef}>
         {[...Array(8)].map((_, i) => (
@@ -276,11 +269,12 @@ function DataRibbon({ position, color, speed = 1 }: { position: [number, number,
     }
   });
 
+  const ribbonLineMaterial = useMemo(() => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.7 }), [color]);
+  const ribbonLineObject = useMemo(() => new THREE.Line(ribbonGeometry, ribbonLineMaterial), [ribbonGeometry, ribbonLineMaterial]);
+
   return (
     <group ref={groupRef} position={position}>
-      <line geometry={ribbonGeometry}>
-        <lineBasicMaterial color={color} transparent opacity={0.7} linewidth={3} />
-      </line>
+      <primitive object={ribbonLineObject} />
       {/* Glowing particles */}
       <group ref={particlesRef}>
         {[...Array(12)].map((_, i) => (
@@ -404,7 +398,7 @@ function DataParticleField() {
   }, []);
 
   const pointsRef = useRef<THREE.Points>(null);
-  const geometryRef = useRef<THREE.BufferGeometry>(null);
+  const geometryRef = useRef<THREE.BufferGeometry | null>(null);
 
   useFrame((state) => {
     if (pointsRef.current && geometryRef.current) {
@@ -420,22 +414,16 @@ function DataParticleField() {
     }
   });
 
+  const pointsGeometry = useMemo(() => {
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.Float32BufferAttribute(particles.positions, 3));
+    geom.setAttribute('color', new THREE.Float32BufferAttribute(particles.colors, 3));
+    geometryRef.current = geom;
+    return geom;
+  }, [particles.positions, particles.colors]);
+
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry ref={geometryRef}>
-        <bufferAttribute
-          attach="attributes-position"
-          count={400}
-          array={particles.positions}
-          itemSize={3}
-        />
-        <bufferAttribute
-          attach="attributes-color"
-          count={400}
-          array={particles.colors}
-          itemSize={3}
-        />
-      </bufferGeometry>
+    <points ref={pointsRef} geometry={pointsGeometry}>
       <pointsMaterial 
         size={0.1} 
         transparent 
