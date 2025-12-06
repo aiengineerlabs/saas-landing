@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useAnimation } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -7,16 +8,166 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+function Floating3DLogo({ 
+  icon, 
+  index 
+}: { 
+  icon: { name: string; svg: React.ReactElement; color?: string };
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const controls = useAnimation();
+  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  
+  useEffect(() => {
+    // Start continuous floating animation after initial load
+    const timer = setTimeout(() => {
+      controls.start({
+        y: [0, -15, 0],
+        rotateZ: [0, 5, -5, 0],
+        transition: {
+          duration: 4 + index * 0.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: index * 0.3,
+        },
+      });
+    }, 600 + index * 100);
+    
+    return () => clearTimeout(timer);
+  }, [controls, index]);
+  
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+  
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+    setIsHovered(false);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      initial={{ y: 20, opacity: 0, scale: 0.8 }}
+      whileInView={{
+        y: 0,
+        opacity: 1,
+        scale: 1,
+      }}
+      viewport={{ once: true }}
+      animate={controls}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.1,
+        type: "spring",
+        bounce: 0,
+      }}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="relative cursor-pointer"
+    >
+      {/* 3D Card Container */}
+      <div
+        style={{
+          transform: "translateZ(30px)",
+          transformStyle: "preserve-3d",
+        }}
+        className="relative"
+      >
+        {/* Main logo */}
+        <motion.div
+          className={`opacity-60 transition-opacity duration-300 ${
+            isHovered ? "opacity-100" : ""
+          }`}
+          whileHover={{ scale: 1.15 }}
+          transition={{ type: "spring", stiffness: 400 }}
+        >
+          {icon.svg}
+        </motion.div>
+        
+        {/* Glow effect */}
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 blur-xl -z-10"
+            style={{
+              background: `radial-gradient(circle, ${icon.color || "#5ba8ff"}40 0%, transparent 70%)`,
+            }}
+          />
+        )}
+      </div>
+      
+      {/* Floating particles effect */}
+      {isHovered && (
+        <>
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+                x: Math.cos((i / 6) * Math.PI * 2) * 30,
+                y: Math.sin((i / 6) * Math.PI * 2) * 30,
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.1,
+              }}
+              className="absolute inset-0 w-1 h-1 rounded-full"
+              style={{
+                background: icon.color || "#5ba8ff",
+                left: "50%",
+                top: "50%",
+              }}
+            />
+          ))}
+        </>
+      )}
+    </motion.div>
+  );
+}
+
 export default function Partners() {
   const icons = [
     {
       name: "OpenAI",
+      color: "#10A37F",
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          width="32"
-          height="32"
+          width="48"
+          height="48"
           fill="currentColor"
           className="text-black dark:text-white"
         >
@@ -26,11 +177,12 @@ export default function Partners() {
     },
     {
       name: "Anthropic",
+      color: "#D4A574",
       svg: (
         <svg
           viewBox="0 0 24 24"
-          width="32"
-          height="32"
+          width="48"
+          height="48"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
           className="text-black dark:text-white"
@@ -41,12 +193,13 @@ export default function Partners() {
     },
     {
       name: "Google AI",
+      color: "#4285F4",
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          width="32"
-          height="32"
+          width="48"
+          height="48"
         >
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
           <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -57,12 +210,13 @@ export default function Partners() {
     },
     {
       name: "Microsoft",
+      color: "#00A4EF",
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 23 23"
-          width="32"
-          height="32"
+          width="48"
+          height="48"
         >
           <path fill="#f35325" d="M1 1h10v10H1z"/>
           <path fill="#81bc06" d="M12 1h10v10H12z"/>
@@ -73,12 +227,13 @@ export default function Partners() {
     },
     {
       name: "Meta AI",
+      color: "#1877F2",
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          width="32"
-          height="32"
+          width="48"
+          height="48"
           fill="#1877F2"
         >
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -87,11 +242,12 @@ export default function Partners() {
     },
     {
       name: "Hugging Face",
+      color: "#FFD21E",
       svg: (
         <svg
           viewBox="0 0 32 32"
-          width="32"
-          height="32"
+          width="48"
+          height="48"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
         >
@@ -120,29 +276,12 @@ export default function Partners() {
           Trusted by Leading AI Companies
         </h2>
       </motion.div>
-      <div className="w-full grid grid-cols-3 sm:grid-cols-6 grid-rows-3 sm:grid-rows-1 gap-5 place-items-center">
+      <div className="w-full grid grid-cols-3 sm:grid-cols-6 grid-rows-3 sm:grid-rows-1 gap-8 place-items-center perspective-1000">
         <TooltipProvider>
           {icons.map((icon, index) => (
             <Tooltip key={icon.name}>
               <TooltipTrigger asChild>
-                <motion.div
-                  initial={{ y: 20, opacity: 0, filter: "blur(3px)" }}
-                  whileInView={{
-                    y: 0,
-                    filter: "blur(0px)",
-                    opacity: 1,
-                  }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 1,
-                    delay: index * 0.1,
-                    type: "spring",
-                    bounce: 0,
-                  }}
-                  className="opacity-60 hover:opacity-100 transition-opacity duration-300"
-                >
-                  {icon.svg}
-                </motion.div>
+                <Floating3DLogo icon={icon} index={index} />
               </TooltipTrigger>
               <TooltipContent>{icon.name}</TooltipContent>
             </Tooltip>

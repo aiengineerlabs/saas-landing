@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { CheckIcon } from "@radix-ui/react-icons";
 import ContactModal from "@/components/contact-modal";
+import ThreeDCard from "@/components/3d-card";
 
 export default function Pricing() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
@@ -86,11 +87,12 @@ export default function Pricing() {
             transition={{ duration: 0.6, delay: index * 0.1 }}
             className={`relative ${plan.isMostPop ? "scale-105" : ""}`}
           >
-            <Card
-              className={`relative h-full ${
-                plan.isMostPop ? "border-2 border-primary shadow-xl" : ""
-              }`}
-            >
+            <ThreeDCard className="h-full">
+              <Card
+                className={`relative h-full transition-all duration-300 ${
+                  plan.isMostPop ? "border-2 border-primary shadow-xl" : ""
+                }`}
+              >
               {plan.isMostPop && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-card border-2 border-primary px-4 py-1 rounded-full text-sm font-medium">
@@ -149,6 +151,7 @@ export default function Pricing() {
                 </Button>
               </CardFooter>
             </Card>
+            </ThreeDCard>
           </motion.div>
         ))}
       </div>

@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,12 +16,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import ContactModal from "@/components/contact-modal";
 
+const ThreeDBackground = dynamic(() => import("@/components/3d-background"), {
+  ssr: false,
+});
+
 export default function Hero() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   return (
-    <div className="relative justify-center items-center">
-      <section className="max-w-(--breakpoint-xl) mx-auto px-4 py-28 gap-12 md:px-8 flex flex-col justify-center items-center">
+    <div className="relative justify-center items-center overflow-hidden">
+      <ThreeDBackground />
+      <section className="relative max-w-(--breakpoint-xl) mx-auto px-4 py-28 gap-12 md:px-8 flex flex-col justify-center items-center z-10">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{
@@ -41,14 +47,29 @@ export default function Hero() {
           </p>
           <motion.div
             whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0"
           >
-            <Button 
-              className="shadow-lg"
-              onClick={() => setContactModalOpen(true)}
+            <motion.div
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 20px 40px rgba(91, 168, 255, 0.3)"
+              }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              Join Our Daily Learning
-            </Button>
+              <Button 
+                className="shadow-lg relative overflow-hidden"
+                onClick={() => setContactModalOpen(true)}
+              >
+                <motion.span
+                  className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "100%" }}
+                  transition={{ duration: 0.6 }}
+                />
+                <span className="relative z-10">Join Our Daily Learning</span>
+              </Button>
+            </motion.div>
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm">About Hao</Button>
@@ -83,10 +104,21 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0.5, type: "spring", bounce: 0 }}
-        className="w-full h-full absolute -top-32 flex justify-end items-center pointer-events-none "
+        className="w-full h-full absolute -top-32 flex justify-end items-center pointer-events-none z-0"
       >
         <div className="w-3/4 flex justify-center items-center">
-          <div className="w-12 h-[600px] bg-light blur-[70px] rounded-3xl max-sm:rotate-15 sm:rotate-35 will-change-transform"></div>
+          <motion.div 
+            className="w-12 h-[600px] bg-light blur-[70px] rounded-3xl max-sm:rotate-15 sm:rotate-35 will-change-transform"
+            animate={{
+              rotate: [35, 40, 35],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
         </div>
       </motion.div>
       
